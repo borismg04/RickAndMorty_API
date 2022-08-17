@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-
+import './components/GetData';
 export class RickMortyApi extends LitElement {
   static get properties() {
     return {
@@ -21,7 +21,7 @@ export class RickMortyApi extends LitElement {
 
   render() {
     return html`
-
+      <get-data></get-data>
     `;
   }
 }
