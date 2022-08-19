@@ -4,7 +4,7 @@ import './components/GetData';
 export class RickMortyApi extends LitElement {
   static get properties() {
     return {
-      title: { type: String },
+      wiki: { type: Array },
     };
   }
 
@@ -16,10 +16,26 @@ export class RickMortyApi extends LitElement {
   constructor() {
     super();
     this.addEventListener('Api-data', (e) => {
-      console.log(e);
-      // this.data = e.detail.data;
+      this._dataFormat(e.detail.data);
     })
   }
+
+  _dataFormat(data) {
+    let characters=[];
+
+    data['results'].forEach(character => {
+      characters.push({
+        img: character.image,
+        name: character.name,
+        species: character.species,
+        status: character.status,
+      });
+    });
+    this.wiki = characters;
+  }
+
+
+
 
   render() {
     return html`
@@ -28,6 +44,17 @@ export class RickMortyApi extends LitElement {
         method="GET"
       >
       </get-data>
+    `;
+  }
+
+  getTemplate() {
+    return html`
+      ${this.wiki.map(character =>html `
+        <div class="card">
+          <div class="">
+          </div>
+        </div>
+      `)}
     `;
   }
 }
