@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import './components/GetData';
+import style from './styles/RickMortyStyle';
+import './components/ApiTemplate';
 
 export class RickMortyApi extends LitElement {
   static get properties() {
@@ -9,15 +11,17 @@ export class RickMortyApi extends LitElement {
   }
 
   static get styles() {
-    return css`
-    `;
+    return [ style ];
   }
 
   constructor() {
     super();
+
+    this.wiki = [];
+
     this.addEventListener('Api-data', (e) => {
       this._dataFormat(e.detail.data);
-    })
+    });
   }
 
   _dataFormat(data) {
@@ -34,9 +38,6 @@ export class RickMortyApi extends LitElement {
     this.wiki = characters;
   }
 
-
-
-
   render() {
     return html`
       <get-data
@@ -44,14 +45,21 @@ export class RickMortyApi extends LitElement {
         method="GET"
       >
       </get-data>
+      <api-template></api-template>
+      <div class="container">
+        ${this.dateTemplate}
+      </div>
     `;
   }
 
-  getTemplate() {
+  get dateTemplate() {
     return html`
-      ${this.wiki.map(character =>html `
+      ${this.wiki.map(character => html `
         <div class="card">
-          <div class="">
+          <div class="card-content">
+            <h2>${character.name}</h2>
+            <img src="${character.img}">
+            <p>${character.species} | ${character.status}</p>
           </div>
         </div>
       `)}
