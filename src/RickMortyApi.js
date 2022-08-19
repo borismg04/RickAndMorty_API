@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import './components/GetData';
 import style from './styles/RickMortyStyle';
+import './components/ApiTemplate';
 
 export class RickMortyApi extends LitElement {
   static get properties() {
@@ -44,7 +45,10 @@ export class RickMortyApi extends LitElement {
         method="GET"
       >
       </get-data>
-      ${this.dateTemplate}
+      <api-template></api-template>
+      <div class="container">
+        ${this.dateTemplate}
+      </div>
     `;
   }
 
